@@ -33,7 +33,7 @@ const Bingo = (props: any) => {
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const [marked, setMarked] = useState([]);
+  const [marked, setMarked] = useState<any>([]);
 
   const handleStart = () => {
     start(token);
@@ -48,12 +48,13 @@ const Bingo = (props: any) => {
     setIsDialogOpen(true);
   };
 
-  const handleClick = (letter: string, number: number, index: number) => {
+  const handleClick = (letter: string, number: number) => {
     const newMarked = [...marked] as any;
-    if (newMarked[letter]) {
-      newMarked[letter].push(number);
+    const index = bingo.indexOf(letter);
+    if (newMarked[index]) {
+      newMarked[index].push(number);
     } else {
-      newMarked[letter] = [number];
+      newMarked[index] = [number];
     }
 
     setMarked(newMarked);
@@ -67,6 +68,7 @@ const Bingo = (props: any) => {
 
   const generateColumns = () => {
     return bingo.map((b) => {
+      const index = bingo.indexOf(b);
       return (
         <>
           <Box>
@@ -83,9 +85,9 @@ const Bingo = (props: any) => {
                     border: '1px solid gray',
                     padding: '1rem',
                     cursor: 'pointer',
-                    background: 'gray',
+                    background: marked[index]?.includes(v) ? 'gray' : 'white',
                   }}
-                  onClick={() => handleClick(b, v, i)}
+                  onClick={() => handleClick(b, v)}
                 >
                   {v}
                 </Box>
@@ -112,6 +114,7 @@ const Bingo = (props: any) => {
           justifyContent: 'center',
           flexDirection: 'column',
           width: '35%',
+          gap: '1rem',
         }}
       >
         {id === 0 && (

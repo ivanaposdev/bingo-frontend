@@ -43,6 +43,7 @@ const Login = (props: any) => {
   };
 
   const handleToggleRegister = () => {
+    clear();
     toggleLoginRegister();
   };
 
@@ -61,8 +62,10 @@ const Login = (props: any) => {
           justifyContent: 'center',
           flexDirection: 'column',
           width: '35%',
+          gap: '1rem',
         }}
       >
+        <Typography>BINGO Live!</Typography>
         <TextField
           label='Name'
           variant='outlined'
@@ -77,33 +80,37 @@ const Login = (props: any) => {
           onChange={handlePasswordChange}
         />
         <Typography color='red'>{isError && message}</Typography>
-        {isLogin && (
-          <Button variant='contained' onClick={handleSubmit}>
-            Login
-          </Button>
-        )}
         {!isLogin && (
-          <Button variant='contained' color='success' onClick={handleRegister}>
-            Register
-          </Button>
+          <>
+            <Button variant='contained' onClick={handleSubmit}>
+              Login
+            </Button>
+            <Typography
+              color='blue'
+              sx={{ cursor: 'pointer' }}
+              onClick={handleToggleRegister}
+            >
+              No account yet? register here
+            </Typography>
+          </>
         )}
         {isLogin && (
-          <Typography
-            color='blue'
-            sx={{ cursor: 'pointer' }}
-            onClick={handleToggleRegister}
-          >
-            No account yet? register here
-          </Typography>
-        )}
-        {!isLogin && (
-          <Typography
-            color='blue'
-            sx={{ cursor: 'pointer' }}
-            onClick={handleToggleRegister}
-          >
-            Already registered? login here
-          </Typography>
+          <>
+            <Button
+              variant='contained'
+              color='success'
+              onClick={handleRegister}
+            >
+              Register
+            </Button>
+            <Typography
+              color='blue'
+              sx={{ cursor: 'pointer' }}
+              onClick={handleToggleRegister}
+            >
+              Already registered? login here
+            </Typography>
+          </>
         )}
       </Box>
       <Backdrop

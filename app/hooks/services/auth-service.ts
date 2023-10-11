@@ -59,7 +59,9 @@ const useAuthService = () => {
 
     setIsLoading(true);
     try {
-      await client.request({ ...config, ..._config });
+      const res = await client.request({ ...config, ..._config });
+      setToken(res.data);
+      setIsAuthenticated(true);
       setIsLoading(false);
     } catch (e: any) {
       if (e.response.status === 422) {
